@@ -1,6 +1,6 @@
 # Inflationary Cosmology
 
-This repository contains my independent theoretical study of inflationary cosmology, combining a modern field-theoretic treatment with conceptual foundations from cosmology.
+This repository contains my theoretical study of inflationary cosmology, combining a modern field-theoretic treatment with conceptual foundations from cosmology.
 
 The main reference is Daniel Baumann’s *Cosmology*, where I study:
 - The horizon problem and the motivation for inflation  
