@@ -1,0 +1,1381 @@
+\documentclass[11pt,oneside]{book}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{physics}
+\usepackage{titling}
+\usepackage{lipsum}
+
+% Page style
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% Chapter formatting
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-30pt}{40pt}
+
+% Section formatting
+\titleformat{\section}[block]
+{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+% Subsection formatting  
+\titleformat{\subsection}[block]
+{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+
+% Custom colors
+\definecolor{chaptercolor}{RGB}{0, 51, 102}
+\definecolor{sectioncolor}{RGB}{0, 76, 153}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={A Complete Course in Cosmology},
+    pdfauthor={Cosmology Notes}
+}
+
+% Boxed equations
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+\newtcolorbox{importantbox}{colback=blue!5!white, colframe=blue!75!black, fonttitle=\bfseries, title=Important}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{answer}[theorem]{Answer}
+
+% Custom commands
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\vphi}{\varphi}
+\newcommand{\Lagr}{\mathcal{L}}
+\newcommand{\ddfrac}[2]{\frac{\dd #1}{\dd #2}}
+\newcommand{\pfrac}[2]{\frac{\partial #1}{\partial #2}}
+
+\begin{document}
+
+% Title page
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Huge\bfseries A Complete Course in Cosmology\par}
+    \vspace{1cm}
+    {\Large Lecture Notes\par}
+    \vspace{1.5cm}
+    {\Large \textbf{Raj Gaurav Tripathi}\par}
+    \vspace{0.5cm}
+    {\large Department of Physics\par}
+    {\large Indian Institute of Science Education and Research, Kolkata\par}
+    {\large rajgauravmirp@gmail.com\par}
+    \vspace{1.5cm}
+    {\large Based on Cosmology Lectures of Leonard Susskind , Theoritical minimum\par}
+    \vfill
+    {\large \today\par}
+\end{titlepage}
+
+% Table of Contents
+\tableofcontents
+\clearpage
+
+% Main content
+\chapter{Foundations of Cosmological Geometry}
+%\addcontentsline{toc}{chapter}{Foundations of Cosmological Geometry}
+
+\section{The Metric: Describing Space}
+
+The fundamental mathematical object that represents the geometry of space is the \textbf{metric}. The metric encodes all information about distances, angles, and curvature in spacetime.
+
+\begin{definition}
+A metric tensor $g_{\mu\nu}$ allows us to calculate the invariant interval $ds^2$ between nearby events in spacetime.
+\end{definition}
+
+\section{Homogeneity and Isotropy}
+
+The observed universe exhibits two crucial symmetries on large scales:
+
+\begin{itemize}
+    \item \textbf{Homogeneity}: The universe appears the same at all locations (no preferred position)
+    \item \textbf{Isotropy}: The universe appears the same in all directions (no preferred direction)
+\end{itemize}
+
+\begin{remark}
+These are statistical properties valid on scales larger than $\sim$100 Mpc. On smaller scales, the universe is clearly inhomogeneous (galaxies, clusters, voids).
+\end{remark}
+
+\section{The Friedmann-Lemaître-Robertson-Walker (FLRW) Metric}
+
+Given the assumptions of homogeneity and isotropy, the most general metric for the universe takes the form:
+
+\[
+ds^2 = -dt^2 + a^2(t)\left[dr^2 + S_k^2(r)\,d\Omega_2^2\right]
+\]
+
+where:
+\begin{itemize}
+    \item $t$ is cosmic time
+    \item $a(t)$ is the \textbf{scale factor} (describes how distances change with time)
+    \item $d\Omega_2^2 = d\theta^2 + \sin^2\theta\,d\phi^2$ is the angular part
+    \item $k$ is the \textbf{curvature parameter} taking values $+1$, $0$, or $-1$
+\end{itemize}
+
+The spatial part depends on the curvature:
+
+\[
+ds^2 = -dt^2 + a^2(t) \begin{cases} 
+dr^2 + \sin^2 r\, d\Omega_2^2 & k=+1 \text{ (closed, positive curvature)} \\ 
+dr^2 + r^2\, d\Omega_2^2 & k=0 \text{ (flat)} \\ 
+dr^2 + \sinh^2 r\, d\Omega_2^2 & k=-1 \text{ (open, negative curvature)}
+\end{cases}
+\]
+
+\begin{importantbox}
+\textbf{Physical Interpretation:}
+\begin{itemize}
+    \item $k = +1$: Closed universe (like the surface of a 3-sphere)
+    \item $k = 0$: Flat universe (Euclidean geometry)
+    \item $k = -1$: Open universe (hyperbolic geometry)
+\end{itemize}
+\end{importantbox}
+
+\section{The Scale Factor and Expansion}
+
+The scale factor $a(t)$ determines how proper distances evolve with time. If we define $a(t_0) = 1$ today, then:
+
+\textbf{Proper distance} between two points separated by coordinate distance $\Delta r$:
+\[
+D(t) = a(t) \Delta r
+\]
+
+\textbf{Velocity} of recession:
+\[
+v = \dot{D} = \dot{a}(t) \Delta r
+\]
+
+\section{Hubble's Law}
+
+From the relation $v = \dot{a}(t) \Delta r$ and $D = a(t) \Delta r$, we can write:
+
+\[
+v = \frac{\dot{a}}{a} D
+\]
+
+This is \textbf{Hubble's Law}. The quantity:
+
+\[
+H(t) = \frac{\dot{a}(t)}{a(t)}
+\]
+
+is the \textbf{Hubble parameter}. It depends on time but not on position (homogeneity).
+
+\begin{importantbox}
+\textbf{Today's value}: $H_0 \approx 70\text{ km s}^{-1}\text{ Mpc}^{-1}$ is called the \textbf{Hubble constant}.
+\end{importantbox}
+
+\textbf{Key Insight:} The universe is expanding everywhere. This is not expansion \textit{into} something, but expansion \textit{of} space itself.
+
+\chapter{Einstein's Field Equations and Friedmann Cosmology}
+%\addcontentsline{toc}{chapter}{Einstein's Field Equations and Friedmann Cosmology}
+
+\section{Einstein's Field Equations}
+
+The fundamental equation relating spacetime geometry to matter-energy content is:
+
+\[
+R^{\mu\nu} - \frac{1}{2}g^{\mu\nu}R = \frac{8\pi G}{c^4} T^{\mu\nu}
+\]
+
+where:
+\begin{itemize}
+    \item $R^{\mu\nu}$ is the Ricci curvature tensor
+    \item $R$ is the Ricci scalar
+    \item $g^{\mu\nu}$ is the metric tensor
+    \item $T^{\mu\nu}$ is the stress-energy tensor
+    \item $G$ is Newton's gravitational constant
+\end{itemize}
+
+\textbf{Physical meaning:} The left side describes the curvature of spacetime; the right side describes the distribution of matter and energy.
+
+\section{The Friedmann Equation}
+
+For the FLRW metric, the time-time component ($\mu = \nu = 0$) of Einstein's equations gives:
+
+\[
+\frac{\dot{a}^2}{a^2} + \frac{k}{a^2} = \frac{8\pi G}{3}\rho
+\]
+
+This can be rearranged as:
+
+\[
+\boxed{\frac{\dot{a}^2}{a^2} = \frac{8\pi G}{3}\rho - \frac{k}{a^2}}
+\]
+
+or equivalently:
+
+\[
+\boxed{H^2 = \frac{8\pi G}{3}\rho - \frac{k}{a^2}}
+\]
+
+This is the \textbf{Friedmann equation}, the central equation of cosmology.
+
+\section{Critical Density and the Density Parameter}
+
+Define the \textbf{critical density}:
+
+\[
+\rho_{\text{crit}} = \frac{3H^2}{8\pi G}
+\]
+
+This is the density required for a flat universe ($k=0$).
+
+The \textbf{density parameter} is:
+
+\[
+\Omega = \frac{\rho}{\rho_{\text{crit}}}
+\]
+
+The Friedmann equation can be rewritten as:
+
+\[
+\Omega - 1 = \frac{k}{a^2 H^2}
+\]
+
+Thus:
+\begin{itemize}
+    \item $\Omega > 1 \Rightarrow k = +1$ (closed)
+    \item $\Omega = 1 \Rightarrow k = 0$ (flat)
+    \item $\Omega < 1 \Rightarrow k = -1$ (open)
+\end{itemize}
+
+\chapter{Matter, Radiation, and the Equation of State}
+%\addcontentsline{toc}{chapter}{Matter, Radiation, and the Equation of State}
+
+\section{The Stress-Energy Tensor for Perfect Fluids}
+
+For a homogeneous, isotropic fluid, the stress-energy tensor takes the form:
+
+\[
+T^{\mu\nu} = (\rho + P)u^\mu u^\nu + P g^{\mu\nu}
+\]
+
+where:
+\begin{itemize}
+    \item $\rho$ is energy density
+    \item $P$ is pressure
+    \item $u^\mu$ is the 4-velocity of the fluid
+\end{itemize}
+
+In the rest frame: $T^{00} = \rho$ and $T^{ii} = P$.
+
+\section{Equation of State}
+
+The relationship between pressure and energy density is called the \textbf{equation of state}:
+
+\[
+P = w\rho
+\]
+
+where $w$ is a constant characterizing the fluid.
+
+\textbf{Examples:}
+\begin{itemize}
+    \item \textbf{Matter (non-relativistic):} $w = 0$ (negligible pressure)
+    \item \textbf{Radiation (relativistic):} $w = 1/3$
+    \item \textbf{Vacuum energy:} $w = -1$
+\end{itemize}
+
+\section{Energy Conservation and $\rho(a)$}
+
+From energy conservation (or equivalently, the continuity equation $\nabla_\mu T^{\mu\nu} = 0$), we can derive how energy density changes with the scale factor.
+
+\textbf{Derivation:}
+
+The total energy in a comoving volume $V \propto a^3$ is:
+\[
+E = \rho V
+\]
+
+The first law of thermodynamics states:
+\[
+dE = -P\,dV
+\]
+
+Therefore:
+\[
+dE = d(\rho V) = \rho\,dV + V\,d\rho = -P\,dV
+\]
+
+This gives:
+\[
+V\,d\rho = -(P + \rho)\,dV
+\]
+
+Substituting $P = w\rho$:
+\[
+V\,d\rho = -(1 + w)\rho\,dV
+\]
+
+Separating variables:
+\[
+\frac{d\rho}{\rho} = -(1 + w)\frac{dV}{V}
+\]
+
+Integrating:
+\[
+\ln\rho = -(1 + w)\ln V + \text{const}
+\]
+
+\[
+\rho = \frac{C}{V^{1+w}}
+\]
+
+Since $V \propto a^3$:
+
+\[
+\boxed{\rho(a) = \frac{C}{a^{3(1+w)}}}
+\]
+
+\textbf{Specific cases:}
+
+\textbf{For matter} ($w = 0$):
+\[
+\boxed{\rho_m = \frac{\rho_{m,0}}{a^3}}
+\]
+
+where $\rho_{m,0}$ is the matter density when $a = 1$.
+
+\textbf{Physical interpretation:} Matter density decreases as volume increases—particles get diluted.
+
+\textbf{For radiation} ($w = 1/3$):
+\[
+\boxed{\rho_r = \frac{\rho_{r,0}}{a^4}}
+\]
+
+\textbf{Physical interpretation:} Radiation density decreases faster than matter because not only do photons get diluted ($\propto 1/a^3$), but each photon also loses energy due to cosmological redshift ($\propto 1/a$).
+
+\textbf{For vacuum energy} ($w = -1$):
+\[
+\boxed{\rho_\Lambda = \text{constant}}
+\]
+
+\textbf{Physical interpretation:} Vacuum energy density does not dilute—it is a property of space itself.
+
+\section{Physical Origin of $w = 0$ for Matter}
+
+\begin{question}
+Why is pressure negligible for non-relativistic matter?
+\end{question}
+
+\begin{answer}
+Pressure arises from the kinetic motion of particles. For a particle of mass $m$ moving with velocity $v$:
+\begin{itemize}
+    \item Rest mass energy: $E_{\text{rest}} = mc^2$
+    \item Kinetic energy: $E_{\text{kin}} = \frac{1}{2}mv^2$ (non-relativistic)
+\end{itemize}
+
+The ratio is:
+\[
+\frac{E_{\text{kin}}}{E_{\text{rest}}} = \frac{v^2}{2c^2} \ll 1
+\] 
+
+when $v \ll c$.
+
+Since pressure is related to kinetic energy density, while total energy density is dominated by rest mass, we have:
+
+\[
+P \ll \rho \quad \Rightarrow \quad w \approx 0
+\]
+\end{answer}
+
+\section{Physical Origin of $w = 1/3$ for Radiation}
+
+\begin{question}
+Why does radiation have $w = 1/3$?
+\end{question}
+
+\begin{answer}
+\textbf{Answer through kinetic theory:}
+
+Consider a box filled with photons, each with energy $\epsilon$ and momentum $|\vec{p}| = \epsilon/c$ (in units where $c = 1$, we have $|\vec{p}| = \epsilon$).
+
+\textbf{Setup:}
+\begin{itemize}
+    \item Number density of photons: $n = N/V$
+    \item Photons move isotropically in all directions
+\end{itemize}
+
+\textbf{Calculating pressure on a wall:}
+
+Consider photons hitting a wall perpendicular to the $x$-axis at angle $\theta$ to the normal.
+
+In time $\Delta t$, photons within distance $c\Delta t \cos\theta$ from the wall will hit it.
+
+\textbf{Momentum transfer} per collision: $\Delta p = 2\epsilon\cos\theta$ (elastic reflection)
+
+\textbf{Force per photon:} 
+\[
+F = \frac{\Delta p}{\Delta t} = \frac{2\epsilon\cos\theta}{\Delta t}
+\]
+
+\textbf{Number of photons hitting} the wall of area $A$ in time $\Delta t$:
+\[
+N_{\text{hit}} = (c\Delta t\cos\theta \cdot A) \cdot n \cdot \frac{1}{2}
+\]
+
+(The factor $1/2$ accounts for only half the photons moving toward the wall)
+
+\textbf{Pressure} (force per unit area):
+\[
+P = \frac{F \cdot N_{\text{hit}}}{A} = \frac{2\epsilon\cos\theta}{\Delta t} \cdot \frac{c\Delta t\cos\theta \cdot A \cdot n}{2A}
+\]
+
+\[
+P = \epsilon n c \cos^2\theta
+\]
+
+\textbf{Angular averaging:}
+
+Photons move in all directions isotropically. The average of $\cos^2\theta$ over all solid angles:
+
+In 3D, direction cosines satisfy: $n_x^2 + n_y^2 + n_z^2 = 1$
+
+By symmetry: $\langle n_x^2 \rangle = \langle n_y^2 \rangle = \langle n_z^2 \rangle = 1/3$
+
+Therefore: $\langle\cos^2\theta\rangle = 1/3$
+
+\textbf{Final result:}
+
+Since energy density $\rho = n\epsilon c$:
+
+\[
+P = \rho \langle\cos^2\theta\rangle = \frac{1}{3}\rho
+\]
+
+\[
+\boxed{w = \frac{1}{3}}
+\]
+\end{answer}
+
+\chapter{Vacuum Energy and the Cosmological Constant}
+%\addcontentsline{toc}{chapter}{Vacuum Energy and the Cosmological Constant}
+
+\section{What is Vacuum Energy?}
+
+\textbf{Vacuum energy} is the energy density of "empty" space. Even in the absence of particles, quantum field theory predicts that the vacuum has a non-zero energy density due to:
+\begin{itemize}
+    \item Zero-point fluctuations of quantum fields
+    \item Virtual particle-antiparticle pairs
+    \item Quantum vacuum polarization
+\end{itemize}
+
+\textbf{Key property:} Vacuum energy density is a universal constant—it does not change with time or location. We denote it as $\rho_0$ or $\rho_\Lambda$.
+
+\section{The Cosmological Constant $\Lambda$}
+
+Vacuum energy can be incorporated into Einstein's equations through the \textbf{cosmological constant} $\Lambda$:
+
+\[
+\rho_\Lambda = \frac{\Lambda}{8\pi G}
+\]
+
+The Friedmann equation becomes:
+
+\[
+H^2 = \frac{8\pi G}{3}\rho_{\text{matter+radiation}} + \frac{\Lambda}{3} - \frac{k}{a^2}
+\]
+
+\section{Negative Pressure: The Physics of Tension}
+
+\begin{question}
+Can energy density be negative?
+\end{question}
+
+\begin{answer}
+No. Energy density must be non-negative.
+\end{answer}
+
+\begin{question}
+Can pressure be negative?
+\end{question}
+
+\begin{answer}
+Yes! Negative pressure is called \textbf{tension}.
+
+\textbf{Analogy:} Consider a spring stretched between two walls:
+\begin{itemize}
+    \item As you pull the walls apart (increase volume), the spring exerts greater tension
+    \item The potential energy stored in the spring \textit{increases} (unlike ordinary matter/radiation where energy decreases when volume increases)
+\end{itemize}
+\end{answer}
+
+\section{Deriving $w = -1$ for Vacuum Energy}
+
+\textbf{Given:} Vacuum energy density $\rho_0$ is constant.
+
+From $E = \rho V$:
+\[
+dE = \rho_0\, dV
+\]
+
+From thermodynamics:
+\[
+dE = -P\,dV
+\]
+
+Therefore:
+\[
+\rho_0\,dV = -P\,dV
+\]
+
+\[
+\boxed{P = -\rho_0}
+\]
+
+Thus: $w = P/\rho = -1$
+
+\textbf{Physical interpretation:} Vacuum energy does not dilute as the universe expands. It is an intrinsic property of space itself. As space expands, more vacuum energy is created, which is possible because vacuum energy has negative pressure—it does work \textit{on} the universe as it expands.
+
+\section{Vacuum-Dominated Universe Solutions}
+
+With only vacuum energy, the Friedmann equation is:
+
+\[
+H^2 = \frac{\dot{a}^2}{a^2} = \Lambda - \frac{k}{a^2}
+\]
+
+Let's examine all six possible cases.
+
+\subsection*{Case 1: Flat Vacuum Universe ($\Lambda > 0$, $k = 0$)}
+
+\[
+\frac{\dot{a}}{a} = \sqrt{\Lambda}
+\]
+
+This integrates to:
+\[
+\boxed{a(t) = a_0 e^{\sqrt{\Lambda}\,t} = a_0 e^{Ht}}
+\]
+
+where $H = \sqrt{\Lambda}$ = constant.
+
+This is called \textbf{de Sitter space}. The universe expands exponentially, with constant Hubble parameter.
+
+\subsection*{Case 2: Closed Vacuum Universe ($\Lambda > 0$, $k = +1$)}
+
+\[
+\dot{a}^2 = \Lambda a^2 - 1
+\]
+
+This can be written as:
+\[
+\dot{a}^2 - \Lambda a^2 = -1
+\]
+
+This is analogous to a classical energy equation: kinetic energy minus potential energy equals total energy ($-1$).
+
+\textbf{Solution:}
+\[
+\boxed{a(t) = \frac{1}{\sqrt{\Lambda}}\cosh(\sqrt{\Lambda}\,t)}
+\]
+
+Expanding the hyperbolic function:
+\[
+a(t) = \frac{1}{2\sqrt{\Lambda}}(e^{\sqrt{\Lambda}\,t} + e^{-\sqrt{\Lambda}\,t})
+\]
+
+\textbf{Properties:}
+\begin{itemize}
+    \item Symmetric in time around $t = 0$ (minimum at the "throat")
+    \item Exponentially expanding for $|t| \gg 1/\sqrt{\Lambda}$
+    \item Geometrically equivalent to de Sitter space (different coordinate system)
+\end{itemize}
+
+\textbf{Visualization:} The spatial geometry is a 3-sphere, and the spacetime forms a hyperboloid.
+
+\subsection*{Case 3: Open Universe with Negative Cosmological Constant ($\Lambda < 0$, $k = -1$)}
+
+\[
+\dot{a}^2 = -|\Lambda|a^2 + 1
+\]
+
+or:
+\[
+\dot{a}^2 + |\Lambda|a^2 = 1
+\]
+
+This is analogous to a particle in a potential well.
+
+\textbf{Behavior:} The universe oscillates! It expands, reaches a maximum size, then contracts in a periodic cycle.
+
+\begin{remark}
+Cases with $\Lambda < 0$ and $k = +1$ are not physical (left side of Friedmann equation would be negative).
+\end{remark}
+
+\section{The Vacuum Energy Problem}
+
+\begin{question}
+What would be the most natural value for vacuum energy density?
+\end{question}
+
+\begin{answer}
+Based on dimensional analysis using fundamental constants $c$, $\hbar$, and $G$, we can construct the \textbf{Planck energy density}:
+
+\[
+\rho_{\text{Planck}} \sim \frac{\hbar c}{l_P^4} \sim M_P^4 \sim 10^{76}\text{ GeV}^4
+\]
+
+where $l_P = \sqrt{\hbar G/c^3} \approx 10^{-35}$ m is the Planck length.
+
+\textbf{Observation:} The measured vacuum energy density is:
+
+\[
+\rho_{\text{observed}} \sim 10^{-47}\text{ GeV}^4
+\]
+
+\textbf{The problem:} 
+
+\[
+\frac{\rho_{\text{observed}}}{\rho_{\text{Planck}}} \sim 10^{-123}
+\]
+
+\textbf{This is the worst prediction in the history of physics!} Why is the vacuum energy density 123 orders of magnitude smaller than our "natural" expectation? This is called the \textbf{cosmological constant problem} and remains one of the deepest unsolved problems in physics.
+\end{answer}
+
+\chapter{Observational Cosmology: Measuring the Universe}
+%\addcontentsline{toc}{chapter}{Observational Cosmology: Measuring the Universe}
+
+\section{The Omega Parameters}
+
+It is convenient to express the Friedmann equation in terms of dimensionless density parameters. Today (at $a = 1$):
+
+\[
+H_0^2 = \frac{8\pi G}{3}(\rho_m + \rho_r) + \frac{\Lambda}{3} - k
+\]
+
+Define:
+
+\[
+\Omega_m = \frac{8\pi G \rho_m}{3H_0^2} = \frac{\rho_m}{\rho_{\text{crit}}}
+\]
+
+\[
+\Omega_r = \frac{8\pi G \rho_r}{3H_0^2} = \frac{\rho_r}{\rho_{\text{crit}}}
+\]
+
+\[
+\Omega_\Lambda = \frac{\Lambda}{3H_0^2}
+\]
+
+\[
+\Omega_k = -\frac{k}{H_0^2}
+\]
+
+The Friedmann equation becomes:
+
+\[
+\boxed{\Omega_m + \Omega_r + \Omega_\Lambda + \Omega_k = 1}
+\]
+
+\textbf{Current observational values:}
+\begin{itemize}
+    \item $\Omega_m \approx 0.3$ (includes dark matter)
+    \item $\Omega_r \approx 10^{-5}$ (negligible today)
+    \item $\Omega_\Lambda \approx 0.7$
+    \item $\Omega_k \approx 0 \pm 0.01$ (universe is very flat)
+\end{itemize}
+
+\section{Hubble's Original Measurement}
+
+\textbf{Historical context (1920s-1930s):}
+
+Edwin Hubble discovered the expansion of the universe by:
+\begin{enumerate}
+    \item Measuring \textbf{distances} to galaxies using standard candles (Cepheid variables)
+    \item Measuring \textbf{velocities} from redshifts
+    \item Plotting luminosity (distance) versus redshift
+\end{enumerate}
+
+He found: $v \propto d$, establishing Hubble's Law.
+
+\section{Age of the Universe from $H_0$}
+
+For a matter-dominated universe ($\rho \propto a^{-3}$):
+
+Friedmann equation: $\dot{a}^2 \propto a^{-1}$
+
+This gives: $a(t) \propto t^{2/3}$
+
+Therefore:
+\[
+H = \frac{\dot{a}}{a} = \frac{2}{3}\frac{t^{-1/3}}{t^{2/3}} = \frac{2}{3t}
+\]
+
+Today:
+\[
+\boxed{H_0 = \frac{2}{3T}}
+\]
+
+where $T$ is the age of the universe.
+
+Or approximately: $H_0 \sim 1/T$ for order-of-magnitude estimates.
+
+\section{Dark Matter from Galaxy Rotation Curves}
+
+\textbf{Historical expectation:} Matter glows and gravitates together.
+
+\textbf{Galactic rotation curves:}
+
+For a galaxy with most luminous mass concentrated near the center, Newtonian gravity predicts:
+
+\[
+\frac{GMv^2}{r} = \frac{GM}{r^2} \quad \Rightarrow \quad v \propto \frac{1}{\sqrt{r}}
+\]
+
+\textbf{Expected:} Velocity should decrease with distance from center.
+
+\textbf{Observed:} Velocity remains approximately constant (flat rotation curves) at large radii.
+
+\textbf{Implication:}
+
+If $v$ = constant and $v^2 = GM(r)/r$, then:
+
+\[
+M(r) \propto r
+\]
+
+The mass must increase linearly with radius, implying a large halo of invisible matter.
+
+\section{Redshift}
+
+\textbf{Definition:}
+
+Light emitted at wavelength $\lambda_{\text{emit}}$ is observed at wavelength $\lambda_{\text{obs}}$:
+
+\[
+z = \frac{\lambda_{\text{obs}} - \lambda_{\text{emit}}}{\lambda_{\text{emit}}}
+\]
+
+\textbf{Relation to scale factor:}
+
+Consider a photon traveling from a distant galaxy to us. The metric is:
+
+\[
+ds^2 = -dt^2 + a^2(t)dr^2
+\]
+
+For a light ray ($ds^2 = 0$) traveling radially toward us:
+
+\[
+dt = -a(t)dr
+\]
+
+The wavelength of light scales with the scale factor:
+
+\[
+\frac{\lambda_{\text{obs}}}{\lambda_{\text{emit}}} = \frac{a_{\text{today}}}{a(t_{\text{emit}})}
+\]
+
+With $a_{\text{today}} = 1$:
+
+\[
+\boxed{1 + z = \frac{1}{a(t_{\text{emit}})}}
+\]
+
+or:
+
+\[
+\boxed{z = \frac{1}{a} - 1}
+\]
+
+\textbf{Physical interpretation:} Redshift directly measures how much the universe has expanded since the light was emitted.
+
+\chapter{Thermal History of the Universe}
+%\addcontentsline{toc}{chapter}{Thermal History of the Universe}
+
+\section{The Cosmic Microwave Background (CMB)}
+
+\textbf{Most important fact:} The most abundant particles in the universe today are photons from the \textbf{Cosmic Microwave Background} (CMB).
+
+The CMB is thermal radiation with a near-perfect blackbody spectrum at temperature:
+
+\[
+T_{\text{CMB,today}} \approx 2.7\text{ K}
+\]
+
+\textbf{Peak wavelength:} $\lambda_{\text{peak}} \approx 1$ mm (microwave region).
+
+\section{Blackbody Radiation}
+
+\textbf{Historical context (pre-1900):}
+
+Attempts to derive the spectrum of thermal radiation using classical physics led to the \textbf{Rayleigh-Jeans Law}:
+
+\[
+I(\nu, T) = \frac{2k_BT\nu^2}{c^2}
+\]
+
+where $I$ is energy per unit volume per unit frequency.
+
+\textbf{Problem:} As $\nu \to \infty$, $I \to \infty$ (the \textbf{ultraviolet catastrophe}).
+
+\textbf{Planck's solution (1900):}
+
+Introducing the quantum hypothesis ($E = h\nu$), Planck derived:
+
+\[
+\boxed{I(\nu, T) \propto \frac{\nu^3}{e^{h\nu/k_BT} - 1}}
+\]
+
+This is the \textbf{Planck distribution}.
+
+\section{Why is the CMB a Blackbody?}
+
+\begin{question}
+The universe is not in thermal equilibrium today, so why does the CMB have a perfect blackbody spectrum?
+\end{question}
+
+\begin{answer}
+The CMB \textit{was} in thermal equilibrium in the early universe. After photons decoupled from matter, the blackbody shape was "frozen in"—it just redshifts.
+
+\textbf{Scaling of blackbody spectrum:}
+
+The Planck distribution depends on the ratio $\nu/T$:
+
+\[
+I(\nu, T) \propto \frac{\nu^3}{e^{h\nu/kT} - 1}
+\]
+
+In an expanding universe:
+\begin{itemize}
+    \item Frequency redshifts: $\nu \propto 1/a$
+    \item Temperature decreases: $T \propto 1/a$
+\end{itemize}
+
+The ratio $\nu/T$ remains constant! Therefore, the blackbody shape is preserved.
+
+\[
+\boxed{T(a) = \frac{T_0}{a}}
+\]
+
+As the universe expands, the blackbody spectrum simply shifts to longer wavelengths (lower temperatures), but maintains its characteristic shape.
+\end{answer}
+
+\section{Decoupling and Recombination}
+
+\begin{question}
+At what epoch did photons "decouple" from matter?
+\end{question}
+
+\begin{answer}
+When the universe cooled enough for electrons and protons to combine into neutral hydrogen atoms.
+
+\textbf{Ionization energy of hydrogen:} $E_{\text{ion}} = 13.6$ eV
+
+\textbf{Naïve estimate:} 
+\[
+T_{\text{decouple}} \sim \frac{E_{\text{ion}}}{k_B} \sim 10^5\text{ K}
+\]
+
+\textbf{Problem:} Photons have a distribution of energies. Even at lower temperatures, some photons in the high-energy tail can ionize hydrogen.
+
+\textbf{Refined calculation:}
+
+The probability of a photon having energy $E$ is:
+\[
+P(E) \propto e^{-E/k_BT}
+\]
+
+The photon-to-baryon ratio:
+\[
+\frac{N_\gamma}{N_b} \approx 10^8
+\]
+
+For significant recombination, the number of photons with $E > E_{\text{ion}}$ must drop below the number of baryons:
+
+\[
+e^{-E_{\text{ion}}/k_BT} \times 10^8 \sim 1
+\]
+
+\[
+\frac{E_{\text{ion}}}{k_BT} \approx \ln(10^8) \approx 20
+\]
+
+\[
+\boxed{T_{\text{decouple}} \approx \frac{E_{\text{ion}}}{20k_B} \approx 4000\text{ K}}
+\]
+
+\textbf{Redshift at decoupling:}
+\[
+z_{\text{decouple}} = \frac{T_{\text{decouple}}}{T_{\text{today}}} \approx \frac{4000}{2.7} \approx 1100
+\]
+
+\textbf{Physical picture:}
+
+Before decoupling ($z > 1100$): Universe is ionized plasma. Photons scatter frequently off free electrons (Thomson scattering). The universe is \textbf{opaque}.
+
+After decoupling ($z < 1100$): Electrons combine with protons to form neutral atoms. Photons travel freely. The universe becomes \textbf{transparent}.
+
+\textbf{What we observe:} The CMB is a snapshot of the universe at $z \approx 1100$. We cannot see electromagnetic radiation from earlier times—the universe was opaque.
+
+\textbf{Can we observe earlier epochs?}
+
+Yes, using:
+\begin{enumerate}
+    \item \textbf{Neutrinos} (if we could detect them)—they decoupled even earlier
+    \item \textbf{Gravitational waves} from the early universe (primordial GWs)
+\end{enumerate}
+
+Both can propagate through the opaque ionized plasma.
+\end{answer}
+
+\chapter{The Matter-Antimatter Asymmetry}
+%\addcontentsline{toc}{chapter}{The Matter-Antimatter Asymmetry}
+
+\section{The Puzzle}
+
+\textbf{Observation:} The universe today contains:
+\begin{itemize}
+    \item Lots of matter (protons, neutrons, electrons)
+    \item Almost no antimatter (antiprotons, antineutrons, positrons)
+\end{itemize}
+
+\textbf{Photon-to-baryon ratio:}
+\[
+\frac{N_\gamma}{N_b} \approx 10^8
+\]
+
+\begin{question}
+Why is there more matter than antimatter?
+\end{question}
+
+\section{Baryon Number}
+
+\textbf{Definition:} The \textbf{baryon number} $B$ of a particle:
+
+\[
+B = \frac{(\text{number of quarks}) - (\text{number of antiquarks})}{3}
+\]
+
+\textbf{Examples:}
+\begin{itemize}
+    \item Proton ($uud$): $B = +1$
+    \item Neutron ($udd$): $B = +1$
+    \item Antiproton: $B = -1$
+    \item Electron: $B = 0$
+    \item Photon: $B = 0$
+\end{itemize}
+
+\textbf{Baryon number conservation} is observed in all known processes (in the Standard Model).
+
+\section{The Sakharov Conditions}
+
+\begin{question}
+What conditions are necessary to generate a matter-antimatter asymmetry?
+\end{question}
+
+\begin{answer}
+\textbf{Answer (Andrei Sakharov, 1967):} Three conditions are necessary and (probably) sufficient:
+
+\begin{enumerate}
+    \item \textbf{Baryon number violation:} There must be processes that change the net baryon number.
+    
+    \item \textbf{C and CP violation:} Charge conjugation and combined CP symmetry must be violated, so matter and antimatter behave differently.
+    
+    \item \textbf{Departure from thermal equilibrium:} The universe must be out of equilibrium to avoid C symmetry being restored.
+\end{enumerate}
+
+\textbf{All three conditions are satisfied in the real universe:}
+\begin{enumerate}
+    \item ✓ Baryon number violation: Predicted in GUTs (though rare)
+    \item ✓ C and CP violation: Observed in weak interactions
+    \item ✓ Out of equilibrium: The expanding universe is inherently out of equilibrium
+\end{enumerate}
+\end{answer}
+
+\chapter{Inflation: Solving the Puzzles of the Early Universe}
+%\addcontentsline{toc}{chapter}{Inflation: Solving the Puzzles of the Early Universe}
+
+\section{The Homogeneity Problem}
+
+\textbf{Naïve expectation:} 
+
+A box of gas is homogeneous because particles collide and exchange energy, reaching statistical equilibrium.
+
+\textbf{But the universe is different!}
+
+\begin{itemize}
+    \item Gravitational interactions dominate on large scales
+    \item Gravity amplifies inhomogeneities (overdense regions attract more matter)
+\end{itemize}
+
+\textbf{Paradox:} Given that gravity enhances density contrasts, why is the universe so homogeneous?
+
+\textbf{Answer:} The universe must have started \textit{extremely} homogeneous.
+
+\textbf{Quantitative constraint:}
+
+The observed density fluctuations in the CMB:
+\[
+\frac{\delta\rho}{\rho} \sim 10^{-5}
+\]
+
+\textbf{This requires explanation!} Why were initial conditions so special?
+
+\section{The Flatness Problem}
+
+\textbf{Observation:} The universe today is extraordinarily flat:
+\[
+\Omega_k = 0 \pm 0.01
+\]
+
+\textbf{Evolution of curvature:}
+
+From the Friedmann equation:
+\[
+\Omega - 1 = \frac{k}{a^2 H^2}
+\]
+
+In a matter-dominated universe ($H^2 \propto a^{-3}$):
+\[
+|\Omega - 1| \propto a
+\]
+
+In a radiation-dominated universe ($H^2 \propto a^{-4}$):
+\[
+|\Omega - 1| \propto a^2
+\]
+
+\textbf{Implication:} $\Omega = 1$ is an unstable fixed point. Any small deviation grows with time.
+
+\textbf{Observational constraint:}
+
+To have $|\Omega - 1| < 0.01$ today requires:
+\[
+|\Omega - 1|_{\text{Planck}} < 10^{-60}
+\]
+
+at the Planck time ($t \sim 10^{-43}$ s).
+
+\begin{question}
+Why was the universe tuned to flatness to 60 decimal places?
+\end{question}
+
+\section{The Inflationary Solution}
+
+\textbf{Idea (Alan Guth, 1981):} The early universe underwent a period of exponential expansion.
+
+\textbf{Mechanism:} Inflation is driven by a scalar field $\phi$ (the "inflaton") with:
+\begin{itemize}
+    \item Large potential energy $V(\phi)$
+    \item Slow evolution
+\end{itemize}
+
+\textbf{Duration:} At least $\sim 60$ \textbf{e-foldings}:
+\[
+a_{\text{final}}/a_{\text{initial}} \gtrsim e^{60} \sim 10^{26}
+\]
+
+\section{The Inflaton Field}
+
+\textbf{Energy density of a scalar field:}
+
+\[
+\rho = \frac{\dot{\phi}^2}{2} + V(\phi)
+\]
+
+\begin{itemize}
+    \item Kinetic energy: $\frac{\dot{\phi}^2}{2}$
+    \item Potential energy: $V(\phi)$
+    \item No spatial gradients: $\nabla\phi = 0$ (field is uniform)
+\end{itemize}
+
+\textbf{Pressure:}
+
+For a scalar field:
+\[
+P = \frac{\dot{\phi}^2}{2} - V(\phi)
+\]
+
+\textbf{Equation of state parameter:}
+
+\[
+w = \frac{P}{\rho} = \frac{\dot{\phi}^2/2 - V(\phi)}{\dot{\phi}^2/2 + V(\phi)}
+\]
+
+\textbf{Slow-roll regime:} If $V(\phi) \gg \dot{\phi}^2$:
+
+\[
+w \approx \frac{-V(\phi)}{V(\phi)} = -1
+\]
+
+The scalar field behaves like vacuum energy!
+
+\section{Equation of Motion for the Inflaton}
+
+\textbf{Lagrangian:}
+
+\[
+\Lagr = a^3(t)\left[\frac{\dot{\phi}^2}{2} - V(\phi)\right]
+\]
+
+The factor $a^3$ accounts for the changing volume.
+
+\textbf{Euler-Lagrange equation:}
+
+\[
+\frac{d}{dt}\frac{\partial \Lagr}{\partial\dot{\phi}} = \frac{\partial \Lagr}{\partial\phi}
+\]
+
+\[
+\frac{d}{dt}(a^3\dot{\phi}) = -a^3\frac{dV}{d\phi}
+\]
+
+Expanding:
+\[
+3a^2\dot{a}\dot{\phi} + a^3\ddot{\phi} = -a^3\frac{dV}{d\phi}
+\]
+
+Dividing by $a^3$:
+
+\[
+\boxed{\ddot{\phi} + 3H\dot{\phi} + \frac{dV}{d\phi} = 0}
+\]
+
+\textbf{Physical interpretation:}
+
+This looks like the equation of motion for a particle moving in potential $V(\phi)$ with \textbf{friction} proportional to $3H$.
+
+\[
+\ddot{\phi} + 3H\dot{\phi} = -\frac{dV}{d\phi}
+\]
+
+The Hubble expansion acts like a viscous medium, damping the motion of $\phi$.
+
+\section{Friedmann Equation During Inflation}
+
+\[
+H^2 = \frac{8\pi G}{3}\left[\frac{\dot{\phi}^2}{2} + V(\phi)\right]
+\]
+
+\textbf{Slow-roll condition:} $V(\phi) \gg \dot{\phi}^2$
+
+\[
+H^2 \approx \frac{8\pi G}{3}V(\phi)
+\]
+
+If $V(\phi)$ is approximately constant (slowly varying):
+
+\[
+H \approx \text{constant}
+\]
+
+\textbf{Exponential expansion:}
+
+\[
+\frac{\dot{a}}{a} = H = \text{constant}
+\]
+
+\[
+\boxed{a(t) = a_0 e^{Ht}}
+\]
+
+\textbf{Doubling time:}
+
+\[
+t_{\text{double}} = \frac{\ln 2}{H} \sim \frac{1}{H}
+\]
+
+For early universe with large $V(\phi)$:
+\[
+t_{\text{double}} \sim 10^{-32}\text{ s}
+\]
+
+The universe doubles in size every $10^{-32}$ seconds!
+
+\section{How Inflation Solves the Problems}
+
+\subsection*{Flatness Problem}
+
+Recall:
+\[
+\Omega_k = -\frac{k}{a^2H^2}
+\]
+
+During inflation, $H \approx$ constant while $a$ grows exponentially:
+
+\[
+|\Omega_k| \propto \frac{1}{a^2} \to 0
+\]
+
+Inflation drives the universe toward flatness regardless of initial conditions.
+
+\subsection*{Horizon Problem}
+
+\textbf{Before inflation:} Widely separated regions were never in causal contact.
+
+\textbf{During inflation:} A tiny causally-connected patch is stretched to enormous size.
+
+\textbf{After inflation:} The entire observable universe originated from a single causally-connected region.
+
+All parts of the CMB had the same temperature because they originated from the same small patch.
+
+\subsection*{Monopole Problem}
+
+\textbf{Dilution by expansion:}
+
+Number density: $n \propto a^{-3}$
+
+After 60 e-foldings:
+\[
+n_{\text{final}} = n_{\text{initial}} \times e^{-180} \sim 10^{-78}
+\]
+
+Any monopoles produced before inflation are diluted to undetectable levels.
+
+\subsection*{Homogeneity Problem}
+
+\textbf{Quantum fluctuations:}
+
+During inflation, quantum fluctuations in $\phi$ are stretched to macroscopic scales.
+
+These generate density perturbations:
+\[
+\frac{\delta\rho}{\rho} \sim \frac{H^2}{2\pi\dot{\phi}}
+\]
+
+Inflation predicts:
+\begin{itemize}
+    \item Nearly scale-invariant spectrum (observed!)
+    \item Gaussian fluctuations (observed!)
+    \item $\delta\rho/\rho \sim 10^{-5}$ (observed!)
+\end{itemize}
+
+The observed density fluctuations are \textit{predictions} of inflation, not fine-tuning!
+
+\appendix
+\chapter{Appendix A: Summary of Key Equations}
+%\addcontentsline{toc}{chapter}{Appendix A: Summary of Key Equations}
+
+\section*{Metric and Expansion}
+
+FLRW metric:
+\[
+ds^2 = -dt^2 + a^2(t)[dr^2 + S_k^2(r)d\Omega_2^2]
+\]
+
+Hubble parameter:
+\[
+H(t) = \frac{\dot{a}}{a}
+\]
+
+Hubble's law:
+\[
+v = HD
+\]
+
+\section*{Friedmann Equation}
+
+\[
+H^2 = \frac{8\pi G}{3}\rho - \frac{k}{a^2}
+\]
+
+With components:
+\[
+H^2 = \frac{8\pi G}{3}(\rho_m + \rho_r + \rho_\Lambda) - \frac{k}{a^2}
+\]
+
+In terms of $\Omega$ parameters:
+\[
+\Omega_m + \Omega_r + \Omega_\Lambda + \Omega_k = 1
+\]
+
+\section*{Equation of State and Scaling}
+
+\[
+P = w\rho
+\]
+
+\[
+\rho(a) = \frac{\rho_0}{a^{3(1+w)}}
+\]
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Component & $w$ & $\rho(a)$ \\
+\midrule
+Matter & 0 & $\rho_0/a^3$ \\
+Radiation & 1/3 & $\rho_0/a^4$ \\
+Vacuum & -1 & $\rho_0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Redshift}
+
+\[
+1 + z = \frac{1}{a(t_{\text{emit}})}
+\]
+
+Temperature:
+\[
+T(a) = \frac{T_0}{a}
+\]
+
+\section*{Scale Factor Evolution}
+
+Matter-dominated:
+\[
+a(t) \propto t^{2/3}
+\]
+
+Radiation-dominated:
+\[
+a(t) \propto t^{1/2}
+\]
+
+Vacuum-dominated (de Sitter):
+\[
+a(t) = e^{Ht}
+\]
+
+\chapter{Appendix B: Important Epochs}
+%\addcontentsline{toc}{chapter}{Appendix B: Important Epochs}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{p{3cm}p{2.5cm}p{3cm}p{7cm}}
+\toprule
+Epoch & Redshift $z$ & Temperature & Description \\
+\midrule
+Today & 0 & 2.7 K & Dark energy dominated \\
+Matter-$\Lambda$ equality & $\sim$0.3 & $\sim$4 K & Transition to acceleration \\
+Matter-radiation equality & $\sim$3000 & $\sim$8000 K & Radiation $\to$ matter dominance \\
+Recombination/Decoupling & $\sim$1100 & $\sim$4000 K & Atoms form, CMB released \\
+Electron-positron annihilation & $\sim$$10^{10}$ & $\sim$$10^{10}$ K & Pairs annihilate \\
+Quark-hadron transition & $\sim$$10^{13}$ & $\sim$$10^{13}$ K & Quark-gluon plasma $\to$ hadrons \\
+Inflation & $\sim$$10^{26+}$ & ? & Exponential expansion \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
